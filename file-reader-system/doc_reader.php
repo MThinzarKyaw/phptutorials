@@ -4,23 +4,23 @@ use PhpOffice\PhpWord\IOFactory as WordIOFactory;
 
 function readDocxFile($path) {
     try {
-        $phpWord = WordIOFactory::load($path);
+        $phpWord = WordIOFactory::load($path); // Load the Word document using PhpWord library
         $fullText = "";
 
-        foreach ($phpWord->getSections() as $section) {
-            foreach ($section->getElements() as $element) {
-                if (method_exists($element, 'getText')) {
+        foreach ($phpWord->getSections() as $section) { // Iterate through each section of the document
+            foreach ($section->getElements() as $element) { // Loop through elements like paragraphs or tables
+                if (method_exists($element, 'getText')) { // Check if the element has a method to retrieve text
                     /** @var \PhpOffice\PhpWord\Element\Text $element */
-                    $fullText .= '<p class="mb-2">' . htmlspecialchars($element->getText()) . '</p>';
+                    $fullText .= '<p class="mb-2">' . htmlspecialchars($element->getText()) . '</p>'; // Append text wrapped in paragraph tags
                 } 
                 elseif ($element instanceof \PhpOffice\PhpWord\Element\Table) {
                     $fullText .= '<div class="table-responsive"><table class="table table-bordered">';
-                    foreach ($element->getRows() as $row) {
+                    foreach ($element->getRows() as $row) { // Iterate through each row of a table
                         $fullText .= '<tr>';
-                        foreach ($row->getCells() as $cell) {
+                        foreach ($row->getCells() as $cell) { // Iterate through each cell within a row
                             $fullText .= '<td>';
                             foreach ($cell->getElements() as $cellElement) {
-                                if (method_exists($cellElement, 'getText')) {
+                                if (method_exists($cellElement, 'getText')) { // Check if the table cell element contains text
                                     /** @var \PhpOffice\PhpWord\Element\Text $cellElement */
                                     $fullText .= htmlspecialchars($cellElement->getText());
                                 }
@@ -49,3 +49,4 @@ function readDocxFile($path) {
         return "<div class='alert alert-danger'>Error reading Word file: " . $e->getMessage() . "</div>";
     }
 }
+?>

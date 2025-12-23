@@ -15,24 +15,34 @@
     <div class="row g-4">
         <?php
         $dir = 'uploads/';
-        if (!is_dir($dir)) mkdir($dir);
-        $files = array_diff(scandir($dir), array('..', '.'));
+        if (!is_dir($dir)) mkdir($dir); // Create uploads folder if it doesn't exist
+        $allFiles = array_diff(scandir($dir), array('..', '.', 'vendor')); // Get file list excluding system directories
+
+        $files = array_filter($allFiles, function ($file) {
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION)); // Get the file extension in lower case
+            return in_array($ext, ['txt', 'csv', 'docx', 'xlsx', 'xls']);
+        });
 
         foreach ($files as $file):
-            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
             $icon = 'bi-file-earmark';
             $color = 'text-secondary';
+
             if($ext == 'txt') { 
-                $icon = 'bi-file-earmark-text'; $color = 'text-warning'; 
+                $icon = 'bi-file-earmark-text'; 
+                $color = 'text-warning'; 
             }
             if($ext == 'xlsx' || $ext == 'xls') { 
-                $icon = 'bi-file-earmark-excel'; $color = 'text-success'; 
+                $icon = 'bi-file-earmark-excel'; 
+                $color = 'text-success'; 
             }
             if($ext == 'csv') { 
-                $icon = 'bi-filetype-csv'; $color = 'text-info'; 
+                $icon = 'bi-filetype-csv'; 
+                $color = 'text-info'; 
             }
             if($ext == 'docx') { 
-                $icon = 'bi-file-earmark-word'; $color = 'text-primary'; 
+                $icon = 'bi-file-earmark-word';  // Set icon for Microsoft Word documents
+                $color = 'text-primary'; 
             }
         ?>
             <div class="col-md-3">
@@ -40,7 +50,7 @@
                     <div class="card-body text-center">
                         <i class="bi <?php echo $icon . ' ' . $color; ?> display-4"></i>
                         <h6 class="mt-3 text-truncate"><?php echo $file; ?></h6>
-                        <a href="view.php?file=<?php echo urlencode($file); ?>" class="btn btn-outline-dark btn-sm rounded-pill px-3">Open File</a>
+                        <a href="view.php?file=<?php echo urlencode($dir . $file); ?>" class="btn btn-outline-dark btn-sm rounded-pill px-3">Open File</a>
                     </div>
                 </div>
             </div>

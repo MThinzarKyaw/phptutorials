@@ -1,7 +1,7 @@
 <?php
 function readTextFile($path) {
-    if (file_exists($path)) {
-        $content = file_get_contents($path);
+    if (file_exists($path)) { // Check if the text file exists on the server
+        $content = file_get_contents($path); // Get raw text content from the file
         return '<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="card-header bg-warning bg-opacity-10 border-0 py-3">
         <h5 class="mb-0 text-dark"><i class="bi bi-file-earmark-text me-2"></i>Plain Text Content</h5>

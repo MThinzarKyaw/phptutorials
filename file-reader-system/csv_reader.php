@@ -1,6 +1,6 @@
 <?php
 function readCsvFile($path) {
-    if (($handle = fopen($path, "r")) !== FALSE) {
+    if (($handle = fopen($path, "r")) !== FALSE) { // Open the CSV file in read-only mode
         $html = '<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                     <div class="card-header bg-info bg-opacity-10 border-0 py-3">
                         <h5 class="mb-0 text-info"><i class="bi bi-filetype-csv me-2"></i>CSV Document Details</h5>
@@ -9,7 +9,7 @@ function readCsvFile($path) {
                         <div class="table-responsive">
                             <table class="table table-sm table-hover mb-0">';
         
-        while (($data = fgetcsv($handle, 1000, ",", "\"", "")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",", "\"", "")) !== FALSE) { // Parse each row of the CSV into an array
             $html .= "<tr>";
             foreach ($data as $cell) {
                 $html .= "<td class='p-3 border-bottom'>" . htmlspecialchars($cell) . "</td>";
@@ -17,7 +17,7 @@ function readCsvFile($path) {
             $html .= "</tr>";
         }
         $html .= '</table></div></div></div>';
-        fclose($handle);
+        fclose($handle); // Close the opened file handle to free up resources
         return $html;
     }
     return "<div class='alert alert-danger'>Could not open CSV file.</div>";

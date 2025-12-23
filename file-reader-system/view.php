@@ -9,19 +9,18 @@
 <div class="container py-4">
     <div class="mb-4"><a href="index.php" class="btn btn-dark btn-sm"><i class="bi bi-arrow-left"></i> Back</a></div>
     <?php
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL & ~E_DEPRECATED);
+    ini_set('display_errors', 1); // Enable error display for debugging
+    error_reporting(E_ALL & ~E_DEPRECATED); // Hide deprecated warnings from newer PHP versions 
     
     $file_name = $_GET['file'] ?? '';
     $path = __DIR__ . "/uploads/" . $file_name;
 
-    if (empty($file_name) || !file_exists($path)) {
-        echo "File not found at: " . htmlspecialchars($path);
+    if (empty($file_name) || !file_exists($path)) { // Verify if file name is provided and file exists
+        echo "File not found at: " . htmlspecialchars($path); // Show error path if file is missing 
         exit;
     }
 
-    $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-
+    $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION)); // Get file extension to determine file type
     if ($ext == 'csv') {
         require_once __DIR__ . '/csv_reader.php';
         echo readCsvFile($path);

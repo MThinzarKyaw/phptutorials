@@ -4,8 +4,8 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 function readExcelFile($path) {
     try {
-        $spreadsheet = IOFactory::load($path);
-        $data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        $spreadsheet = IOFactory::load($path); // Load the excel file using PhpSpreadsheet Library
+        $data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true); // Convert active sheet data into an associative array
 
         $html = '<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
         <div class="card-header bg-success bg-opacity-10 border-0 py-3">
