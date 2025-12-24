@@ -1,6 +1,12 @@
 <?php
 $host = 'localhost';
+$db   = '';
 $user = 'postgres';
+$pass = '';
+
+if (!$dbconn) { 
+    die("Connection failed"); 
+}
 
 try {
     $pdo = new PDO("pgsql:host=$host;dbname=$db", $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -48,7 +54,6 @@ try {
     // Read
     $stmt = $pdo->query("SELECT * FROM tutorials ORDER BY tutorial_id ASC");
     $tutorials = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
 }

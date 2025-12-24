@@ -1,10 +1,7 @@
 <?php
-$conn_str = "host=localhost dbname=my_db user=postgres password=mya123";
-$dbconn = pg_connect($conn_str);
+include_once 'db_connection.php';
 
-if (!$dbconn) {
-    die("Connection failed");
-}
+$edit_data = null;
 
 // Create
 if (isset($_POST['add'])) {
@@ -38,7 +35,7 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
-// Edit
+// Edit Fetch
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $result = pg_query_params($dbconn, "SELECT * FROM tutorials WHERE tutorial_id = $1", [$id]);

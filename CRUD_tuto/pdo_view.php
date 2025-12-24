@@ -1,9 +1,9 @@
-<?php include 'pg_logic.php'; ?>
+<?php include_once 'pdo_logic.php'; ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>pg Tutorials</title>
+    <title>PDO Tutorials</title>
 </head>
 
 <body>
@@ -18,10 +18,10 @@
             <option value="In Progress" <?= (isset($edit_data) && $edit_data['status'] == 'In Progress') ? 'selected' : '' ?>>In Progress</option>
         </select>
         <button type="submit" name="<?= $edit_data ? 'update' : 'add' ?>"><?= $edit_data ? 'Update' : 'Save' ?></button>
-        <?php if ($edit_data): ?> <a href="pg_view.php">Cancel</a> <?php endif; ?>
+        <?php if ($edit_data): ?> <a href="pdo_view.php">Cancel</a> <?php endif; ?>
     </form>
 
-    <table border="1" style="margin-top: 20px; width: 80%; border-collapse: collapse;">
+    <table border="1" style="margin-top:20px; width: 80%; border-collapse: collapse;">
         <tr style="background: #f4f4f4;">
             <th>No.</th>
             <th>Name</th>
