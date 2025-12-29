@@ -27,4 +27,3 @@ pg_query_params(
 );
 
 echo "User created";
-?>

@@ -15,4 +15,3 @@ if ($user && password_verify($password, $user['password'])) {
 } else {
     echo '<div class="alert alert-danger">Invalid email or password</div>';
 }
-?>

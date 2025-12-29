@@ -16,4 +16,3 @@ $dbconn = pg_connect("host=$host dbname=$db user=$user password=$pass");
 if (!$dbconn) {
     die("pg_* Connection failed: " . pg_last_error());
 }
-?>

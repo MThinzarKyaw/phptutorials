@@ -4,7 +4,7 @@ include 'db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $token = bin2hex(random_bytes(32));
-    
+
     $expire = date("Y-m-d H:i:s", strtotime("+15 minutes"));
 
     $check_query = "SELECT * FROM users WHERE email = $1";
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($update_result) {
             $link = "http://localhost:8080/Tutorials/auth/reset_password.php?token=$token";
-            
+
             echo "<div class='container mt-5 alert alert-info'>";
             echo "<h4>Mail Server Error (Localhost)</h4>";
             echo "Change password using this link for testing. <br><br>";
@@ -29,4 +29,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Email not found in database'); window.location='forgot_password.php';</script>";
     }
 }
-?>

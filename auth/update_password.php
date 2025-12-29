@@ -22,4 +22,3 @@ if ($user) {
 } else {
     echo "Invalid token.";
 }
-?>

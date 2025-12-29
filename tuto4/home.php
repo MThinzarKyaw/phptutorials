@@ -9,11 +9,14 @@ if (!isset($_SESSION['user'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home Page</title>
 </head>
+
 <body>
     <h2>Welcome <?php echo $_SESSION['user']; ?></h2>
     <a href="logout.php">Logout</a>
 </body>
+
 </html>
